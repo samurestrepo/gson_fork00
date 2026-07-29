@@ -14,18 +14,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" child.project.url.inherit.append.path="false">
+<project 
+  
+  xmlns="http://maven.apache.org/POM/4.0.0" 
+  
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" child.project.url.inherit.append.path="false">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>com.google.code.gson</groupId>
   <artifactId>gson-parent</artifactId>
   <version>2.14.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-
   <name>Gson Parent</name>
   <description>Gson JSON library</description>
   <url>https://github.com/google/gson</url>
-
   <modules>
     <module>gson</module>
     <module>test-jpms</module>
@@ -35,21 +36,19 @@
     <module>metrics</module>
     <module>proto</module>
   </modules>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>8</maven.compiler.release>
     <maven.compiler.testRelease>11</maven.compiler.testRelease>
-
     <!-- Make the build reproducible, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <!-- Automatically updated by Maven Release Plugin -->
     <project.build.outputTimestamp>2026-04-23T19:00:38Z</project.build.outputTimestamp>
-
     <!-- These properties are to be overwritten by the Maven modules -->
     <!-- Whether this module is an integration test module -->
     <gson.isTestModule>false</gson.isTestModule>
+    <sonar.organization>samurestrepo</sonar.organization>
+    <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
-
   <!-- These attributes specify that the URLs should be inherited by the modules as is, to avoid constructing
     invalid URLs, see also https://maven.apache.org/ref/3.9.1/maven-model-builder/index.html#inheritance-assembly -->
   <scm child.scm.url.inherit.append.path="false" child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false">
@@ -58,7 +57,6 @@
     <developerConnection>scm:git:git@github.com:google/gson.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
-
   <developers>
     <developer>
       <id>google</id>
@@ -66,19 +64,16 @@
       <organizationUrl>https://www.google.com</organizationUrl>
     </developer>
   </developers>
-
   <issueManagement>
     <system>GitHub Issues</system>
     <url>https://github.com/google/gson/issues</url>
   </issueManagement>
-
   <licenses>
     <license>
       <name>Apache-2.0</name>
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -86,7 +81,6 @@
         <artifactId>junit</artifactId>
         <version>4.13.2</version>
       </dependency>
-
       <dependency>
         <groupId>com.google.truth</groupId>
         <artifactId>truth</artifactId>
@@ -94,7 +88,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <build>
     <plugins>
       <plugin>
@@ -113,7 +106,6 @@
                   <!-- Usage of `.mvn/jvm.config` for Error Prone requires at least Maven 3.3.1 -->
                   <version>[3.3.1,)</version>
                 </requireMavenVersion>
-
                 <!-- Enforce that correct JDK version is used to avoid cryptic build errors -->
                 <requireJavaVersion>
                   <!-- Some plugins and test dependencies require at least JDK 17 -->
@@ -127,8 +119,27 @@
           </execution>
         </executions>
       </plugin>
-
       <!-- Spotless plugin: keeps the code formatted following the google-java-styleguide -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
@@ -164,7 +175,6 @@
               </indent>
             </format>
           </formats>
-
           <java>
             <googleJavaFormat>
               <style>GOOGLE</style>
@@ -172,11 +182,11 @@
               <reorderImports>true</reorderImports>
               <formatJavadoc>true</formatJavadoc>
             </googleJavaFormat>
-            <formatAnnotations />     <!-- Puts type annotations immediately before types. -->
+            <formatAnnotations />
+            <!-- Puts type annotations immediately before types. -->
           </java>
         </configuration>
       </plugin>
-
       <!-- Attaches a `.buildinfo` file which contains information for reproducing the build,
         such as OS, JDK version, ...
         Since this is a multi-module Maven project, only one aggregated file will be created for
@@ -195,7 +205,6 @@
           </execution>
         </executions>
       </plugin>
-
       <!-- Publish gson-parent to Maven Central on `deploy` (common configuration is defined in `pluginManagement`) -->
       <plugin>
         <groupId>org.sonatype.central</groupId>
@@ -205,7 +214,6 @@
         <inherited>false</inherited>
       </plugin>
     </plugins>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -223,21 +231,31 @@
               <arg>--should-stop=ifError=FLOW</arg>
               <arg>-Xplugin:ErrorProne
                 -XepExcludedPaths:.*/generated-test-sources/protobuf/.*
-                -Xep:NotJavadoc:OFF <!-- Triggered by local class. -->
+                -Xep:NotJavadoc:OFF 
+                
+                <!-- Triggered by local class. -->
                 <!-- Increase severity from 'suggestion' to 'warning' so that the user has to fix
                   found issues, and they are not overlooked
                   TODO: Does not work properly yet, see https://github.com/google/error-prone/issues/4206,
                         so for now have to manually set them to `:WARN` -->
                 -XepAllSuggestionsAsWarnings
+                
+                
                 <!-- Enable some experimental checks which are disabled by default
                   In case they cause issues or are unreliable turn them off by adding `:OFF`,
                   and add a comment mentioning why they were disabled -->
-                -Xep:AnnotationPosition <!-- required by style guide -->
+                -Xep:AnnotationPosition 
+                
+                <!-- required by style guide -->
                 -Xep:AssertFalse
-                -Xep:ClassName <!-- required by style guide -->
+                -Xep:ClassName 
+                
+                <!-- required by style guide -->
                 -Xep:ClassNamedLikeTypeParameter:WARN
                 -Xep:ComparisonContractViolated
-                -Xep:ConstantField:WARN <!-- required by style guide -->
+                -Xep:ConstantField:WARN 
+                
+                <!-- required by style guide -->
                 -Xep:DepAnn
                 -Xep:DifferentNameButSame
                 -Xep:EmptyIf
@@ -246,44 +264,78 @@
                 -Xep:FunctionalInterfaceClash
                 -Xep:InitializeInline
                 -Xep:InterfaceWithOnlyStatics
-                -Xep:LambdaFunctionalInterface:WARN <!-- only relevant for test code at the moment, which uses Java 11 -->
-                -Xep:LongLiteralLowerCaseSuffix <!-- required by style guide -->
-                -Xep:MemberName <!-- required by style guide -->
+                -Xep:LambdaFunctionalInterface:WARN 
+                
+                <!-- only relevant for test code at the moment, which uses Java 11 -->
+                -Xep:LongLiteralLowerCaseSuffix 
+                
+                <!-- required by style guide -->
+                -Xep:MemberName 
+                
+                <!-- required by style guide -->
                 -Xep:MissingBraces:WARN
-                -Xep:MissingDefault <!-- required by style guide -->
-                -Xep:MixedArrayDimensions:WARN <!-- required by style guide -->
-                -Xep:MultiVariableDeclaration:WARN <!-- required by style guide -->
-                -Xep:MultipleTopLevelClasses:WARN <!-- required by style guide -->
+                -Xep:MissingDefault 
+                
+                <!-- required by style guide -->
+                -Xep:MixedArrayDimensions:WARN 
+                
+                <!-- required by style guide -->
+                -Xep:MultiVariableDeclaration:WARN 
+                
+                <!-- required by style guide -->
+                -Xep:MultipleTopLevelClasses:WARN 
+                
+                <!-- required by style guide -->
                 -Xep:NonCanonicalStaticMemberImport
                 -Xep:NonFinalStaticField
                 -Xep:PackageLocation:WARN
-                -Xep:PatternMatchingInstanceof:OFF <!-- disabled: requires Java 16 -->
+                -Xep:PatternMatchingInstanceof:OFF 
+                
+                <!-- disabled: requires Java 16 -->
                 -Xep:PrimitiveArrayPassedToVarargsMethod
                 -Xep:PrivateConstructorForUtilityClass:WARN
                 -Xep:RemoveUnusedImports:WARN
-                -Xep:StatementSwitchToExpressionSwitch:OFF <!-- disabled: requires Java 14 -->
-                -Xep:StaticQualifiedUsingExpression <!-- required by style guide -->
-                -Xep:StringConcatToTextBlock:OFF <!-- disabled: requires Java 15 -->
+                -Xep:StatementSwitchToExpressionSwitch:OFF 
+                
+                <!-- disabled: requires Java 14 -->
+                -Xep:StaticQualifiedUsingExpression 
+                
+                <!-- required by style guide -->
+                -Xep:StringConcatToTextBlock:OFF 
+                
+                <!-- disabled: requires Java 15 -->
                 -Xep:SwitchDefault:WARN
                 -Xep:SystemExitOutsideMain
                 -Xep:SystemOut
                 -Xep:TestExceptionChecker
-                -Xep:ThrowSpecificExceptions:OFF <!-- disabled: Gson has no proper exception hierarchy yet, see https://github.com/google/gson/issues/2359 -->
-                -Xep:TryFailRefactoring:OFF <!-- disabled: there are too many tests which violate this -->
-                -Xep:TypeParameterNaming:WARN <!-- required by style guide -->
+                -Xep:ThrowSpecificExceptions:OFF 
+                
+                <!-- disabled: Gson has no proper exception hierarchy yet, see https://github.com/google/gson/issues/2359 -->
+                -Xep:TryFailRefactoring:OFF 
+                
+                <!-- disabled: there are too many tests which violate this -->
+                -Xep:TypeParameterNaming:WARN 
+                
+                <!-- required by style guide -->
                 -Xep:UnescapedEntity
-                -Xep:UngroupedOverloads:WARN <!-- required by style guide -->
+                -Xep:UngroupedOverloads:WARN 
+                
+                <!-- required by style guide -->
                 -Xep:UnnecessarilyFullyQualified
                 -Xep:UnnecessarilyUsedValue
                 -Xep:UnnecessaryBoxedVariable:WARN
                 -Xep:UnnecessaryDefaultInEnumSwitch
                 -Xep:UnnecessaryFinal
-                -Xep:UnnecessaryStaticImport:WARN <!-- required by style guide -->
+                -Xep:UnnecessaryStaticImport:WARN 
+                
+                <!-- required by style guide -->
                 -Xep:UnusedException
                 -Xep:UrlInSee
                 -Xep:UseCorrectAssertInTests
                 -Xep:UseEnumSwitch:WARN
-                -Xep:WildcardImport:WARN <!-- required by style guide -->
+                -Xep:WildcardImport:WARN 
+                
+                <!-- required by style guide -->
                 -Xep:YodaCondition
               </arg>
               <!-- Enable all warnings, except for ones which cause issues when building with newer JDKs, see also
@@ -305,7 +357,6 @@
           <version>3.12.0</version>
           <configuration>
             <skip>${gson.isTestModule}</skip>
-
             <!-- Specify newer JDK as target to allow linking to newer Java API, and to generate
               module overview in Javadoc for Gson's module descriptor -->
             <release>11</release>
@@ -473,7 +524,6 @@
             </execution>
           </executions>
         </plugin>
-
         <!-- Plugin for checking source and binary compatibility; used by GitHub workflow -->
         <plugin>
           <groupId>com.github.siom79.japicmp</groupId>
@@ -481,7 +531,6 @@
           <version>0.26.1</version>
           <configuration>
             <skip>${gson.isTestModule}</skip>
-
             <oldVersion>
               <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -490,9 +539,7 @@
                 <version>0.0.0-JAPICMP-OLD</version>
               </dependency>
             </oldVersion>
-
             <!-- 'new version' is automatically the version currently being build -->
-
             <parameter>
               <breakBuildOnSourceIncompatibleModifications>true</breakBuildOnSourceIncompatibleModifications>
               <breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
@@ -505,7 +552,6 @@
             </parameter>
           </configuration>
         </plugin>
-
         <!-- Plugin for checking compatibility with Android API -->
         <!-- Note: For now this is not part of a normal Maven build but instead executed only by a
           GitHub workflow because the Animal Sniffer signature files use Java Serialization, so they
@@ -538,7 +584,6 @@
       </plugins>
     </pluginManagement>
   </build>
-
   <profiles>
     <!-- Disable Spotless before Java 17 -->
     <profile>
@@ -582,7 +627,6 @@
         </plugins>
       </build>
     </profile>
-
     <!-- Profile defining additional plugins to be executed for release -->
     <profile>
       <id>release</id>
