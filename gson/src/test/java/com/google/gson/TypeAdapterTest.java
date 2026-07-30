@@ -55,7 +55,7 @@ public class TypeAdapterTest {
   }
 
   private static final TypeAdapter<String> assertionErrorAdapter =
-      new TypeAdapter<>() {
+      new TypeAdapter<String>() {
         @Override
         public void write(JsonWriter out, String value) {
           throw new AssertionError("unexpected call");
@@ -80,7 +80,7 @@ public class TypeAdapterTest {
   public void testToJson_ThrowingIOException() {
     IOException exception = new IOException("test");
     TypeAdapter<Integer> adapter =
-        new TypeAdapter<>() {
+        new TypeAdapter<Integer>() {
           @Override
           public void write(JsonWriter out, Integer value) throws IOException {
             throw exception;
@@ -100,7 +100,7 @@ public class TypeAdapterTest {
   }
 
   private static final TypeAdapter<String> adapter =
-      new TypeAdapter<>() {
+      new TypeAdapter<String>() {
         @Override
         public void write(JsonWriter out, String value) throws IOException {
           out.value(value);

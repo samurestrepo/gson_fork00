@@ -31,7 +31,7 @@ import org.junit.Test;
  */
 public class OverrideCoreTypeAdaptersTest {
   private static final TypeAdapter<Boolean> booleanAsIntAdapter =
-      new TypeAdapter<>() {
+      new TypeAdapter<Boolean>() {
         @Override
         public void write(JsonWriter out, Boolean value) throws IOException {
           out.value(value ? 1 : 0);
@@ -45,7 +45,7 @@ public class OverrideCoreTypeAdaptersTest {
       };
 
   private static final TypeAdapter<String> swapCaseStringAdapter =
-      new TypeAdapter<>() {
+      new TypeAdapter<String>() {
         @Override
         public void write(JsonWriter out, String value) throws IOException {
           out.value(value.toUpperCase(Locale.US));

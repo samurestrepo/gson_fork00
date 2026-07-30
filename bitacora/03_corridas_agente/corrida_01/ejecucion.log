@@ -1,0 +1,77 @@
+﻿[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules
+[INFO] Installing Central Publishing features
+[INFO] 
+[INFO] ---------------------< com.google.code.gson:gson >----------------------
+[INFO] Building Gson 2.14.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.6.3:enforce (enforce-versions) @ gson ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ gson ---
+[INFO] argLine set to -javaagent:C:\\Users\\sebas\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\sebas\\OneDrive\\Escritorio\\calidad_final\\gson_fork00\\gson\\target\\jacoco.exec
+[INFO] 
+[INFO] --- templating:3.1.0:filter-sources (filtering-java-templates) @ gson ---
+[INFO] Copying files with filtering to temporary directory.
+[INFO] Copying 1 resource from src\main\java-templates to target\templates-tmp3624176805
+[INFO] No files need to be copied to output directory. Up to date: C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target\generated-sources\java-templates
+[INFO] Source directory: C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target\generated-sources\java-templates added.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ gson ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ gson ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- bnd:6.4.0:bnd-process (default) @ gson ---
+[WARNING] C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\pom.xml [0:0]: Export com.google.gson,  has 1,  private references [com.google.gson.internal]
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ gson ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ gson ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:copy-resources (pre-obfuscate-class) @ gson ---
+[INFO] Copying 2 resources from target\test-classes\com\google\gson\functional to target\test-classes-obfuscated-injar\com\google\gson\functional
+[INFO] 
+[INFO] --- proguard:2.7.0:proguard (obfuscate-test-class) @ gson ---
+[INFO] execute ProGuard [-injars, 'C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target\test-classes-obfuscated-injar'(!META-INF/maven/**,**/*.class), -libraryjars, 'C:\Users\sebas\.m2\repository\com\google\errorprone\error_prone_annotations\2.50.0\error_prone_annotations-2.50.0.jar', -outjars, 'C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target\test-classes-obfuscated-outjar', -include, 'C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\src\test\resources\testcases-proguard.conf', -libraryjars, 'C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target/classes', -libraryjars, 'C:\Program Files\Java\jdk-21.0.11/jmods/java.base.jmod', -printmapping, 'C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target\proguard_map.txt', -printseeds, 'C:\Users\sebas\OneDrive\Escritorio\calidad_final\gson_fork00\gson\target\proguard_seed.txt']
+[INFO] proguard jar: [C:\Users\sebas\.m2\repository\com\guardsquare\proguard-base\7.9.1\proguard-base-7.9.1.jar, C:\Users\sebas\.m2\repository\com\guardsquare\proguard-core\9.3.2\proguard-core-9.3.2.jar]
+ [proguard] ProGuard, version 7.9.1
+[INFO] 
+[INFO] --- resources:3.5.0:copy-resources (post-obfuscate-class) @ gson ---
+[INFO] Copying 2 resources from target\test-classes-obfuscated-outjar\com\google\gson\functional to target\test-classes\com\google\gson\functional
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ gson ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+mvn : Java HotSpot(TM) 64-Bit Server VM warning: Ignoring option --illegal-access=deny; support was removed in 17.0
+En línea: 1 Carácter: 1
++ mvn test -pl gson -Dtest=ReflectiveTypeAdapterFactoryBoundaryTest 2>& ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Java HotSpot(TM...removed in 17.0:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[INFO] Running com.google.gson.functional.ReflectiveTypeAdapterFactoryBoundaryTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in com.google.gson.functional.ReflectiveTypeAdapterFactoryBoundaryTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ gson ---
+[INFO] Skipping JaCoCo execution due to missing execution data file.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.757 s
+[INFO] Finished at: 2026-07-29T22:41:50-05:00
+[INFO] ------------------------------------------------------------------------
