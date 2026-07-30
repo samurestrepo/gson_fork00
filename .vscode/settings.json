@@ -1,0 +1,28 @@
+{
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Java\\jdk-21.0.11",
+            "default": true
+        }
+    ],
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-21.0.11",
+    "maven.view": "flat",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.completion.enabled": true,
+    "java.format.enabled": true,
+    "java.errors.incompleteClasspath.severity": "warning",
+    "java.import.maven.enabled": true,
+    "java.import.generatesMetadataFilesAtProjectRoot": true,
+    "java.configuration.maven.globalSettings": null,
+    "java.configuration.maven.userSettings": null,
+    "java.eclipse.downloadSources": true,
+    "maven.executable.path": "",
+    "maven.terminal.useJavaHome": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    }
+}
