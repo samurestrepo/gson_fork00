@@ -14,10 +14,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project 
-  
-  xmlns="http://maven.apache.org/POM/4.0.0" 
-  
+<project
+
+  xmlns="http://maven.apache.org/POM/4.0.0"
+
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" child.project.url.inherit.append.path="false">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code.gson</groupId>
@@ -231,30 +231,30 @@
               <arg>--should-stop=ifError=FLOW</arg>
               <arg>-Xplugin:ErrorProne
                 -XepExcludedPaths:.*/generated-test-sources/protobuf/.*
-                -Xep:NotJavadoc:OFF 
-                
+                -Xep:NotJavadoc:OFF
+
                 <!-- Triggered by local class. -->
                 <!-- Increase severity from 'suggestion' to 'warning' so that the user has to fix
                   found issues, and they are not overlooked
                   TODO: Does not work properly yet, see https://github.com/google/error-prone/issues/4206,
                         so for now have to manually set them to `:WARN` -->
                 -XepAllSuggestionsAsWarnings
-                
-                
+
+
                 <!-- Enable some experimental checks which are disabled by default
                   In case they cause issues or are unreliable turn them off by adding `:OFF`,
                   and add a comment mentioning why they were disabled -->
-                -Xep:AnnotationPosition 
-                
+                -Xep:AnnotationPosition
+
                 <!-- required by style guide -->
                 -Xep:AssertFalse
-                -Xep:ClassName 
-                
+                -Xep:ClassName
+
                 <!-- required by style guide -->
                 -Xep:ClassNamedLikeTypeParameter:WARN
                 -Xep:ComparisonContractViolated
-                -Xep:ConstantField:WARN 
-                
+                -Xep:ConstantField:WARN
+
                 <!-- required by style guide -->
                 -Xep:DepAnn
                 -Xep:DifferentNameButSame
@@ -264,77 +264,77 @@
                 -Xep:FunctionalInterfaceClash
                 -Xep:InitializeInline
                 -Xep:InterfaceWithOnlyStatics
-                -Xep:LambdaFunctionalInterface:WARN 
-                
+                -Xep:LambdaFunctionalInterface:WARN
+
                 <!-- only relevant for test code at the moment, which uses Java 11 -->
-                -Xep:LongLiteralLowerCaseSuffix 
-                
+                -Xep:LongLiteralLowerCaseSuffix
+
                 <!-- required by style guide -->
-                -Xep:MemberName 
-                
+                -Xep:MemberName
+
                 <!-- required by style guide -->
                 -Xep:MissingBraces:WARN
-                -Xep:MissingDefault 
-                
+                -Xep:MissingDefault
+
                 <!-- required by style guide -->
-                -Xep:MixedArrayDimensions:WARN 
-                
+                -Xep:MixedArrayDimensions:WARN
+
                 <!-- required by style guide -->
-                -Xep:MultiVariableDeclaration:WARN 
-                
+                -Xep:MultiVariableDeclaration:WARN
+
                 <!-- required by style guide -->
-                -Xep:MultipleTopLevelClasses:WARN 
-                
+                -Xep:MultipleTopLevelClasses:WARN
+
                 <!-- required by style guide -->
                 -Xep:NonCanonicalStaticMemberImport
                 -Xep:NonFinalStaticField
                 -Xep:PackageLocation:WARN
-                -Xep:PatternMatchingInstanceof:OFF 
-                
+                -Xep:PatternMatchingInstanceof:OFF
+
                 <!-- disabled: requires Java 16 -->
                 -Xep:PrimitiveArrayPassedToVarargsMethod
                 -Xep:PrivateConstructorForUtilityClass:WARN
                 -Xep:RemoveUnusedImports:WARN
-                -Xep:StatementSwitchToExpressionSwitch:OFF 
-                
+                -Xep:StatementSwitchToExpressionSwitch:OFF
+
                 <!-- disabled: requires Java 14 -->
-                -Xep:StaticQualifiedUsingExpression 
-                
+                -Xep:StaticQualifiedUsingExpression
+
                 <!-- required by style guide -->
-                -Xep:StringConcatToTextBlock:OFF 
-                
+                -Xep:StringConcatToTextBlock:OFF
+
                 <!-- disabled: requires Java 15 -->
                 -Xep:SwitchDefault:WARN
                 -Xep:SystemExitOutsideMain
                 -Xep:SystemOut
                 -Xep:TestExceptionChecker
-                -Xep:ThrowSpecificExceptions:OFF 
-                
+                -Xep:ThrowSpecificExceptions:OFF
+
                 <!-- disabled: Gson has no proper exception hierarchy yet, see https://github.com/google/gson/issues/2359 -->
-                -Xep:TryFailRefactoring:OFF 
-                
+                -Xep:TryFailRefactoring:OFF
+
                 <!-- disabled: there are too many tests which violate this -->
-                -Xep:TypeParameterNaming:WARN 
-                
+                -Xep:TypeParameterNaming:WARN
+
                 <!-- required by style guide -->
                 -Xep:UnescapedEntity
-                -Xep:UngroupedOverloads:WARN 
-                
+                -Xep:UngroupedOverloads:WARN
+
                 <!-- required by style guide -->
                 -Xep:UnnecessarilyFullyQualified
                 -Xep:UnnecessarilyUsedValue
                 -Xep:UnnecessaryBoxedVariable:WARN
                 -Xep:UnnecessaryDefaultInEnumSwitch
                 -Xep:UnnecessaryFinal
-                -Xep:UnnecessaryStaticImport:WARN 
-                
+                -Xep:UnnecessaryStaticImport:WARN
+
                 <!-- required by style guide -->
                 -Xep:UnusedException
                 -Xep:UrlInSee
                 -Xep:UseCorrectAssertInTests
                 -Xep:UseEnumSwitch:WARN
-                -Xep:WildcardImport:WARN 
-                
+                -Xep:WildcardImport:WARN
+
                 <!-- required by style guide -->
                 -Xep:YodaCondition
               </arg>
