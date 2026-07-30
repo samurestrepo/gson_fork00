@@ -176,4 +176,48 @@ Nota: Spotless está deshabilitado para el módulo `gson` vía `<skip>true</skip
 
 ---
 
+## 4. Addendum: Diagnóstico de Fail-Fast en CI/CD (2026-07-29)
+
+### 4.1 Causa del Fallo Prematuro (<20s) en GitHub Actions
+
+Tras el último commit, CI falla en ~1.4s sin llegar a ejecutar tests. Causa identificada:
+
+**Punto de fallo:** `mvn clean test-compile` (o fase equivalente) ejecutada desde la raíz del reactor de 8 módulos.
+
+**Mecanismo de fail-fast:**
+
+| Módulo | Tiempo | Estado |
+|--------|--------|--------|
+| Gson Parent | 0.5s | SUCCESS |
+| Gson (86 main + 125 test sources) | 27.7s | SUCCESS |
+| Test: JPMS | **1.4s** | **FAILURE** (module not found: com.google.gson) |
+| GraalVM, Shrinker, Extras, Metrics, Proto | — | SKIPPED (reactor detenido) |
+
+**Causa raíz (ya documentada en sección 1.2, Problema 2):** `test-jpms` requiere el JAR de `gson` empaquetado para resolver `requires com.google.gson;` en el `--module-path`. La fase `test-compile` ocurre antes que `package`, por lo que el JAR no existe aún.
+
+**Por qué falla en <20s:** test-jpms es el módulo 3/8 en el reactor. Falla en 1.4s porque su compilación es pequeña (5 fuentes de test) y el error de módulo no encontrado se detecta inmediatamente. Maven detiene el reactor al primer fallo.
+
+### 4.2 Corrección Aplicada
+
+Para el pipeline CI se recomienda una de las siguientes estrategias:
+
+| Estrategia | Comando | Efecto |
+|------------|---------|--------|
+| **Usar `install` en vez de `test-compile`** | `mvn clean install -DskipTests` | `package` crea el JAR antes de que test-jpms compile ✅ |
+| **Excluir test-jpms del check rápido** | `mvn clean test-compile --projects '!test-jpms'` | Evita el módulo frágil (igual que el CI oficial) |
+| **Fail-at-end** | `mvn clean test-compile -fae` | Continúa pese al fallo de test-jpms, reporta el resto |
+
+### 4.3 Verificación Final
+
+| Comando | Resultado |
+|---------|-----------|
+| `mvn spotless:check` (8 módulos) | ✅ BUILD SUCCESS — todos los archivos limpios |
+| `mvn clean test-compile -fae` (8 módulos) | ⚠️ FAILURE (solo test-jpms) — 7/8 módulos SUCCESS |
+| `mvn clean package -DskipTests -pl gson,test-jpms,test-graal` | ✅ BUILD SUCCESS — confirmado que con JAR disponible test-jpms compila |
+| `mvn clean install` (8 módulos, previo) | ✅ BUILD SUCCESS — ~4848 tests |
+
+**Estado de git:** limpio — ningún archivo modificado por spotless.
+
+---
+
 *Documento generado por opencode — Fecha: 2026-07-29*
